@@ -19,17 +19,15 @@ public class Player extends Entity {
 
     /**
      * a Player contains all code for the first-person camera, movement, etc.
-     * @param spawnAt the player's spawn point
      */
-    public Player(Vector3 spawnAt) {
+    public Player() {
         super();
-
-        // camera setup
         cam = new PerspectiveCamera(FOV_Y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(spawnAt);
-        cam.lookAt(0f, 0f, 0f);
+        cam.position.set(0f, 5f, 0f); // relative Z-plane inverse position (NOT POSITION!)
+        cam.lookAt(0f, 0f, 0f); // initial facing vector
         cam.near = 1f;
         cam.far = 300f;
+        cam.position.z -= 2f; // move player up (so they aren't short)
         cam.update();
     }
 
@@ -50,10 +48,9 @@ public class Player extends Entity {
         else if (Gdx.input.isKeyPressed(Input.Keys.D))
             cam.position.sub(right.scl(MOVE_SPEED * dt));
 
+        // DEBUG: lets player fly up, remember to add gravity later
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            cam.position.y += MOVE_SPEED * dt;
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
-            cam.position.y -= MOVE_SPEED * dt;
+            cam.position.z -= MOVE_SPEED * dt;
 
         // mouse look
         Gdx.input.setCursorCatched(true);

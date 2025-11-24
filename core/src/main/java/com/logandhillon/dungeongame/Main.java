@@ -31,7 +31,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        player = new Player(new Vector3(0f, 5f, 0f));
+        player = new Player();
 
         // Lighting
         env = new Environment();
@@ -39,14 +39,6 @@ public class Main extends ApplicationAdapter {
         env.add(new DirectionalLight().set(1f, 1f, 1f, -1f, -0.8f, -0.2f));
 
         // Model creation
-        models.add(new RoomModel(new Vector3(0,0,0),
-                                 new Vector3(5f,5f,0.1f),
-                                 Color.BLUE));
-
-        models.add(new RoomModel(new Vector3(0,0,5f),
-                                 new Vector3(5f,5f,0.1f),
-                                 Color.YELLOW));
-
         models.add(new RoomModel(new Vector3(0,0,0),
                                  new Vector3(4f,4f,5f),
                                  Color.RED));
