@@ -15,12 +15,16 @@ public class Player extends Entity {
     private static final float MOVE_SPEED = 5f; // units per second
     private static final float MOUSE_SENS = 12.5f; // degrees per second
 
-    public Player() {
+    /**
+     * a Player contains all code for the first-person camera, movement, etc.
+     * @param spawnAt the player's spawn point
+     */
+    public Player(Vector3 spawnAt) {
         super();
 
         // camera setup
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(0f, 5f, 0f);
+        cam.position.set(spawnAt);
         cam.lookAt(0f, 0f, 0f);
         cam.near = 1f;
         cam.far = 300f;
@@ -30,18 +34,19 @@ public class Player extends Entity {
     @Override
     public void update(float dt) {
         // fwd/bck movement
+        Vector3 fwd = new Vector3(cam.direction.x, cam.direction.y, 0).nor();
         if (Gdx.input.isKeyPressed(Input.Keys.W))
-            cam.position.add(cam.direction.cpy().scl(MOVE_SPEED * dt));
+            cam.position.add(fwd.scl(MOVE_SPEED * dt));
         else if (Gdx.input.isKeyPressed(Input.Keys.S))
-            cam.position.sub(cam.direction.cpy().scl(MOVE_SPEED * dt));
+            cam.position.sub(fwd.scl(MOVE_SPEED * dt));
 
         // get vector perpendicular to fwd (R) and add/subtract depending on direction
-        Vector3 right = cam.direction.cpy().crs(Vector3.Z).nor().scl(MOVE_SPEED * dt);
+        Vector3 right = fwd.crs(Vector3.Z).nor();
         // L/R movement
         if (Gdx.input.isKeyPressed(Input.Keys.A))
-            cam.position.add(right);
+            cam.position.add(right.scl(MOVE_SPEED * dt));
         else if (Gdx.input.isKeyPressed(Input.Keys.D))
-            cam.position.sub(right);
+            cam.position.sub(right.scl(MOVE_SPEED * dt));
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
             cam.position.y += MOVE_SPEED * dt;

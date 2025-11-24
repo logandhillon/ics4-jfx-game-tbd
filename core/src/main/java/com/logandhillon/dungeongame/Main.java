@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.math.Vector3;
 import com.logandhillon.dungeongame.entity.Entity;
 import com.logandhillon.dungeongame.entity.Player;
 import com.logandhillon.dungeongame.entity.model.Model3D;
@@ -16,7 +17,11 @@ import com.logandhillon.dungeongame.entity.model.RoomModel;
 
 import java.util.ArrayList;
 
-
+/**
+ * Main class for dungeon game.
+ * Handles bootstrapping, updating (rendering & ticking) and disposing.
+ * @author logan
+ */
 public class Main extends ApplicationAdapter {
     private Player player;
     private Environment env;
@@ -26,7 +31,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        player = new Player();
+        player = new Player(new Vector3(0f, 5f, 0f));
 
         // Lighting
         env = new Environment();
@@ -34,7 +39,7 @@ public class Main extends ApplicationAdapter {
         env.add(new DirectionalLight().set(1f, 1f, 1f, -1f, -0.8f, -0.2f));
 
         // Model creation
-        RoomModel room = new RoomModel(2f, Color.BLUE);
+        RoomModel room = new RoomModel(1f, Color.BLUE);
         models.add(room);
         room.getModelInstance().transform.translate(2,1,0);
 
