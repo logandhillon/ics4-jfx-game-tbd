@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Color;
  * Builds a hollow room using six rectangles (floor, ceiling, walls).
  * Call getModelInstance() to place it in the world.
  */
-public class RoomModel implements IModel3D {
+public class RoomModel extends Model3D {
     private final Model model;
     private final ModelInstance instance;
 
